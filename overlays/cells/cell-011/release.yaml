@@ -1,14 +1,9 @@
-# Break 1: a fixed fault, not on the ballot. Points the app at an image tag that
-# does not exist, producing ImagePullBackOff on one cluster. Deliberately unlike
-# releases A, B and C so it gives nothing away about the vote.
-apiVersion: apps/v1
-kind: Deployment
+# Baseline release patch for cell-011 (con339-ns-03 on use1-03): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: con339-app
+  name: con339-release
   namespace: con339
-spec:
-  template:
-    spec:
-      containers:
-        - name: app
-          image: python:3.12-alpine-does-not-exist
+  labels:
+    con339.io/release: baseline
