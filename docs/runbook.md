@@ -22,3 +22,5 @@
 ## Fixing
 
 Follow `skills/fleet-rules/SKILL.md`. In short: branch `fix/<incident-id>` from `main`, restore each affected `release.yaml` to its content at the commit before the bad one, push one commit, open a PR into `main`. Do not merge. Do not touch `release/fleet` or `base/`.
+
+_Last reviewed: 2026-10-07 22:50 UTC._
