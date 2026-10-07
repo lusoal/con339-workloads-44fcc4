@@ -33,19 +33,31 @@ seconds.
    could poll an existing investigation but not start one. If `investigate` is
    missing from the tool list, that is the token scope and not a broken config.
 
-3. **Export both variables and approve them in Kiro.**
+3. **Store it, from the build repo.** It goes to Secrets Manager, not to a file:
 
    ```bash
-   export DEVOPS_AGENT_TOKEN="aidevops_v1_..."
-   export DEVOPS_AGENT_REGION="us-east-1"
+   ./scripts/put-mcp-token.sh      # reads your clipboard, echoes nothing
    ```
 
-   Then Kiro Settings, search "Mcp Approved Env Vars", add `DEVOPS_AGENT_TOKEN`
-   and `DEVOPS_AGENT_REGION`. **Kiro does not pass unapproved variables to MCP
-   servers**, and the symptom is a server that connects and shows zero tools.
+   `scripts/_env.sh` then exports `DEVOPS_AGENT_TOKEN` and `DEVOPS_AGENT_REGION`
+   from there. It is deliberately not in `demo.env`: that file holds no secrets,
+   and it would not help anyway, because Kiro reads the process environment it was
+   launched with and never reads `demo.env`.
 
-4. **Fully quit and restart Kiro.** If tools still do not appear, start it from a
-   shell where the variables are exported.
+4. **Approve both names in Kiro**: Settings, search "Mcp Approved Env Vars", add
+   `DEVOPS_AGENT_TOKEN` and `DEVOPS_AGENT_REGION`. **Kiro does not pass
+   unapproved variables to MCP servers**, and the symptom is a server that
+   connects and shows zero tools.
+
+5. **Launch Kiro from a shell that sourced the environment**, then restart it
+   fully once:
+
+   ```bash
+   ./scripts/kiro.sh
+   ```
+
+   Starting it from the Dock instead gives it a bare environment and the server
+   comes up with no tools.
 
 `${VAR}` is expanded. `${env:VAR}` is not. And the Kiro **CLI** does not expand
 `${VAR}` inside `url` or `headers` for remote servers, so if you fall back to the
