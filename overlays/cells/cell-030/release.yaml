@@ -1,25 +1,9 @@
-# Release A: memory. Cuts the app memory budget to 16Mi, far below what the
-# Python interpreter needs, so the container is OOMKilled and the pod enters
-# CrashLoopBackOff. status_replicas_unavailable rises above zero.
-#
-# Both requests and limits are lowered together on purpose. Patching limits
-# alone to a value below the base request (128Mi) makes the Deployment invalid,
-# so the API rejects it: "resources.requests: Invalid value: 128Mi: must be less
-# than or equal to memory limit of 64Mi". Argo CD then reports a failed sync and
-# retries forever, the running pods are never touched, and no alarm fires. That
-# is a sync failure, not the runtime fault this release is supposed to cause.
-apiVersion: apps/v1
-kind: Deployment
+# Baseline release patch for cell-030 (con339-ns-02 on use1-08): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: con339-app
+  name: con339-release
   namespace: con339
-spec:
-  template:
-    spec:
-      containers:
-        - name: app
-          resources:
-            requests:
-              memory: 8Mi
-            limits:
-              memory: 16Mi
+  labels:
+    con339.io/release: baseline

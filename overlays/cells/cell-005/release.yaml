@@ -1,18 +1,9 @@
-# Release B: DNS. Narrows the base allow-all egress NetworkPolicy to TCP 80 and
-# 443 only, so UDP and TCP port 53 are blocked. DNS lookups fail, the /ready
-# probe returns 500, and the pods go unready. DnsSuccess drops to 0.
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
+# Baseline release patch for cell-005 (con339-ns-01 on use1-02): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: con339-egress
+  name: con339-release
   namespace: con339
-spec:
-  podSelector: {}
-  policyTypes:
-    - Egress
-  egress:
-    - ports:
-        - protocol: TCP
-          port: 80
-        - protocol: TCP
-          port: 443
+  labels:
+    con339.io/release: baseline
