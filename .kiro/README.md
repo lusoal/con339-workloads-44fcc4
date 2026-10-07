@@ -51,6 +51,14 @@ seconds.
 `${VAR}` inside `url` or `headers` for remote servers, so if you fall back to the
 CLI you have to paste the literal token. In the IDE the placeholder is fine.
 
+## The GitHub server is off by default
+
+`settings/mcp.json` also lists GitHub's MCP server, disabled. It needs Docker
+running, and Kiro already has this clone on disk, so it adds little for break 1.
+A server that fails to start shows red in Kiro, and a red row on a projector
+invites a question you do not want at minute ten. Turn it on if you want Kiro to
+query GitHub directly, and start Docker first.
+
 ## Smoke test before the show
 
 1. `get_agent_space()` returns something. Connectivity is good.
