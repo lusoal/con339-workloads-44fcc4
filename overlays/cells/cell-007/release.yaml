@@ -1,27 +1,9 @@
-# Release C: capacity. Raises the CPU request far above what any allowed
-# instance can provide and raises HPA minReplicas at the same time, so replicas
-# are demanded immediately and every new pod stays Pending with no node able to
-# fit it. status_replicas_unavailable goes above zero straight away.
-apiVersion: apps/v1
-kind: Deployment
+# Baseline release patch for cell-007 (con339-ns-03 on use1-02): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: con339-app
+  name: con339-release
   namespace: con339
-spec:
-  template:
-    spec:
-      containers:
-        - name: app
-          resources:
-            requests:
-              cpu: "95"
-            limits:
-              cpu: "95"
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: con339-app
-  namespace: con339
-spec:
-  minReplicas: 5
+  labels:
+    con339.io/release: baseline
