@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: con339-app
+  namespace: con339
+spec:
+  selector:
+    app: con339-app
+  ports:
+    - port: 80
+      targetPort: 8080

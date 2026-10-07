@@ -1,0 +1,13 @@
+# Enables the Network Policy Controller. Without this ConfigMap, EKS Auto Mode
+# accepts NetworkPolicy objects and enforces none of them: release B applied
+# cleanly, narrowed egress to TCP 80 and 443, and DNS still resolved, so the
+# fault was invisible. The NodeClass already carries networkPolicy: DefaultAllow,
+# which sets the default for unselected pods; this ConfigMap is what turns
+# enforcement on at all.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: amazon-vpc-cni
+  namespace: kube-system
+data:
+  enable-network-policy-controller: "true"

@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: probe-config
+  namespace: con339-probe
+data:
+  # cluster-name must be set to the real cluster (use1-01 .. use1-25) when
+  # this directory is applied to a cluster.
+  cluster-name: unset
+  # Space-separated namespaces to probe on this cluster, one per cell. Patched
+  # per cluster, because cell 5 lives on use1-02 but is namespace con339-ns-01
+  # there: the probe only ever needs its own cluster's namespaces.
+  namespaces: con339
+  metric-namespace: CON339
+  region: us-east-1
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: probe-script
+  namespace: con339-probe
+data:
+  probe.sh: |
+    #!/bin/bash
+    # Publishes HttpHealthy and DnsSuccess every 10s as an explicit 1 or 0, once
+    # per namespace on this cluster. One probe per cluster rather than one per
+    # cell: at 4 cells a cluster that is 25 pods across the fleet instead of 100.
+    #
+    # Both dimensions are emitted because a cell is a namespace on a cluster, and
+    # two cells on one cluster have to be able to be red and green at the same
+    # time. ClusterName alone would average them into one meaningless number.
+    while true; do
+      ARGS=()
+      SUMMARY=""
+      for ns in $NAMESPACES; do
+        BASE="http://con339-app.${ns}.svc.cluster.local"
+        h=0; d=0
+        [ "$(curl -s -o /dev/null -m 3 -w '%{http_code}' "$BASE/healthz")" = "200" ] && h=1
+        [ "$(curl -s -o /dev/null -m 5 -w '%{http_code}' "$BASE/dns")" = "200" ] && d=1
+        DIMS="[{Name=ClusterName,Value=$CLUSTER_NAME},{Name=Namespace,Value=$ns}]"
+        ARGS+=("MetricName=HttpHealthy,Value=$h,Unit=Count,StorageResolution=1,Dimensions=$DIMS")
+        ARGS+=("MetricName=DnsSuccess,Value=$d,Unit=Count,StorageResolution=1,Dimensions=$DIMS")
+        SUMMARY="$SUMMARY ${ns}:h=$h,d=$d"
+      done
+      # One call for every namespace on the cluster. CloudWatch takes up to 1000
+      # data items per call, so even 20 cells is a single request.
+      if [ ${#ARGS[@]} -gt 0 ]; then
+        aws cloudwatch put-metric-data --region "$AWS_REGION" \
+          --namespace "$METRIC_NAMESPACE" \
+          --metric-data "${ARGS[@]}" \
+          || echo "put-metric-data failed"
+      fi
+      echo "$SUMMARY"
+      sleep 10
+    done
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: probe
+  namespace: con339-probe
+  labels:
+    app: probe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: probe
+  template:
+    metadata:
+      labels:
+        app: probe
+    spec:
+      serviceAccountName: probe
+      containers:
+        - name: probe
+          image: amazon/aws-cli:2.17.40
+          command: ["/bin/bash", "/probe/probe.sh"]
+          env:
+            - name: CLUSTER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: probe-config
+                  key: cluster-name
+            - name: NAMESPACES
+              valueFrom:
+                configMapKeyRef:
+                  name: probe-config
+                  key: namespaces
+            - name: METRIC_NAMESPACE
+              valueFrom:
+                configMapKeyRef:
+                  name: probe-config
+                  key: metric-namespace
+            - name: AWS_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: probe-config
+                  key: region
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 256Mi
+          volumeMounts:
+            - name: script
+              mountPath: /probe
+      volumes:
+        - name: script
+          configMap:
+            name: probe-script
+            defaultMode: 0755

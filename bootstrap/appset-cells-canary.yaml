@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cells-canary
+  namespace: argocd
+spec:
+  goTemplate: false
+  generators:
+    - list:
+        elements:
+          - cell: cell-001
+            cluster: use1-01
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-01
+          - cell: cell-002
+            cluster: use1-01
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-01
+          - cell: cell-003
+            cluster: use1-01
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-01
+          - cell: cell-004
+            cluster: use1-01
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-01
+          - cell: cell-005
+            cluster: use1-02
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-02
+          - cell: cell-006
+            cluster: use1-02
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-02
+          - cell: cell-007
+            cluster: use1-02
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-02
+          - cell: cell-008
+            cluster: use1-02
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-02
+  template:
+    metadata:
+      name: '{{cell}}'
+      labels:
+        con339.io/ring: canary
+    spec:
+      project: default
+      destination:
+        server: '{{server}}'
+        namespace: '{{namespace}}'
+      source:
+        repoURL: https://github.com/lusoal/con339-workloads-44fcc4
+        targetRevision: main
+        path: overlays/cells/{{cell}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

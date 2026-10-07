@@ -1,0 +1,144 @@
+{
+  "widgets": [
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 8,
+      "properties": {
+        "title": "HttpHealthy by cluster",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Minimum",
+        "period": 60,
+        "yAxis": {
+          "left": {
+            "min": 0,
+            "max": 1.1
+          }
+        },
+        "metrics": [
+          [
+            "CON339",
+            "HttpHealthy",
+            "ClusterName",
+            "use1-01"
+          ],
+          [
+            "CON339",
+            "HttpHealthy",
+            "ClusterName",
+            "use1-02"
+          ],
+          [
+            "CON339",
+            "HttpHealthy",
+            "ClusterName",
+            "use1-03"
+          ],
+          [
+            "CON339",
+            "HttpHealthy",
+            "ClusterName",
+            "use1-04"
+          ],
+          [
+            "CON339",
+            "HttpHealthy",
+            "ClusterName",
+            "use1-05"
+          ],
+          [
+            "CON339",
+            "HttpHealthy",
+            "ClusterName",
+            "use1-06"
+          ],
+          [
+            "CON339",
+            "HttpHealthy",
+            "ClusterName",
+            "use1-07"
+          ],
+          [
+            "CON339",
+            "HttpHealthy",
+            "ClusterName",
+            "use1-08"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 0,
+      "width": 12,
+      "height": 8,
+      "properties": {
+        "title": "DnsSuccess by cluster",
+        "region": "us-east-1",
+        "view": "timeSeries",
+        "stat": "Minimum",
+        "period": 60,
+        "yAxis": {
+          "left": {
+            "min": 0,
+            "max": 1.1
+          }
+        },
+        "metrics": [
+          [
+            "CON339",
+            "DnsSuccess",
+            "ClusterName",
+            "use1-01"
+          ],
+          [
+            "CON339",
+            "DnsSuccess",
+            "ClusterName",
+            "use1-02"
+          ],
+          [
+            "CON339",
+            "DnsSuccess",
+            "ClusterName",
+            "use1-03"
+          ],
+          [
+            "CON339",
+            "DnsSuccess",
+            "ClusterName",
+            "use1-04"
+          ],
+          [
+            "CON339",
+            "DnsSuccess",
+            "ClusterName",
+            "use1-05"
+          ],
+          [
+            "CON339",
+            "DnsSuccess",
+            "ClusterName",
+            "use1-06"
+          ],
+          [
+            "CON339",
+            "DnsSuccess",
+            "ClusterName",
+            "use1-07"
+          ],
+          [
+            "CON339",
+            "DnsSuccess",
+            "ClusterName",
+            "use1-08"
+          ]
+        ]
+      }
+    }
+  ]
+}

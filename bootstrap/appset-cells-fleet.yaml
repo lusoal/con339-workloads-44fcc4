@@ -1,0 +1,126 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cells-fleet
+  namespace: argocd
+spec:
+  goTemplate: false
+  generators:
+    - list:
+        elements:
+          - cell: cell-009
+            cluster: use1-03
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-03
+          - cell: cell-010
+            cluster: use1-03
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-03
+          - cell: cell-011
+            cluster: use1-03
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-03
+          - cell: cell-012
+            cluster: use1-03
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-03
+          - cell: cell-013
+            cluster: use1-04
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-04
+          - cell: cell-014
+            cluster: use1-04
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-04
+          - cell: cell-015
+            cluster: use1-04
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-04
+          - cell: cell-016
+            cluster: use1-04
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-04
+          - cell: cell-017
+            cluster: use1-05
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-05
+          - cell: cell-018
+            cluster: use1-05
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-05
+          - cell: cell-019
+            cluster: use1-05
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-05
+          - cell: cell-020
+            cluster: use1-05
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-05
+          - cell: cell-021
+            cluster: use1-06
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-06
+          - cell: cell-022
+            cluster: use1-06
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-06
+          - cell: cell-023
+            cluster: use1-06
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-06
+          - cell: cell-024
+            cluster: use1-06
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-06
+          - cell: cell-025
+            cluster: use1-07
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-07
+          - cell: cell-026
+            cluster: use1-07
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-07
+          - cell: cell-027
+            cluster: use1-07
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-07
+          - cell: cell-028
+            cluster: use1-07
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-07
+          - cell: cell-029
+            cluster: use1-08
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-08
+          - cell: cell-030
+            cluster: use1-08
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-08
+          - cell: cell-031
+            cluster: use1-08
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-08
+          - cell: cell-032
+            cluster: use1-08
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-08
+  template:
+    metadata:
+      name: '{{cell}}'
+      labels:
+        con339.io/ring: fleet
+    spec:
+      project: default
+      destination:
+        server: '{{server}}'
+        namespace: '{{namespace}}'
+      source:
+        repoURL: https://github.com/lusoal/con339-workloads-44fcc4
+        targetRevision: release/fleet
+        path: overlays/cells/{{cell}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

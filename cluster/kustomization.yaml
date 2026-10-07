@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+# Cluster-scoped pieces, applied once per cluster rather than once per cell.
+#
+# These were in base/ when base/ was deployed once per cluster. With four cells
+# sharing a cluster that breaks twice over: the NodePool is cluster-scoped, so
+# four cells would each try to create app-pool and fight over one object; and
+# the amazon-vpc-cni ConfigMap has to stay in kube-system, but a per-cell
+# overlay's namespace transformer rewrites it into the cell's namespace, which
+# silently turns NetworkPolicy enforcement back off and makes release B inert.
+resources:
+  - network-policy-controller.yaml
+  - nodepool.yaml

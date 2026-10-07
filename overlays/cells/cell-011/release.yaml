@@ -1,0 +1,9 @@
+# Baseline release patch for cell-011 (con339-ns-03 on use1-03): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: con339-release
+  namespace: con339
+  labels:
+    con339.io/release: baseline

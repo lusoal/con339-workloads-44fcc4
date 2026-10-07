@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "aws-devops-agent": {
+      "url": "https://connect.aidevops.${DEVOPS_AGENT_REGION}.api.aws/mcp",
+      "headers": {
+        "Authorization": "Bearer ${DEVOPS_AGENT_TOKEN}"
+      },
+      "timeout": 120000,
+      "disabled": false,
+      "autoApprove": [
+        "get_agent_space",
+        "list_associations",
+        "get_task",
+        "list_tasks",
+        "list_journal_records",
+        "list_executions",
+        "list_recommendations",
+        "get_recommendation",
+        "list_chats"
+      ]
+    },
+    "github": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "autoApprove": ["get_file_contents", "list_commits", "get_commit"],
+      "disabled": false
+    }
+  }
+}

@@ -1,0 +1,32 @@
+# ServiceAccount con339-probe/probe is the identity to bind to an IAM role
+# (EKS Pod Identity) that allows cloudwatch:PutMetricData.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: probe
+  namespace: con339-probe
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: probe
+  namespace: con339-probe
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames: ["probe-config"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: probe
+  namespace: con339-probe
+subjects:
+  - kind: ServiceAccount
+    name: probe
+    namespace: con339-probe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: probe

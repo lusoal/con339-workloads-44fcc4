@@ -1,0 +1,11 @@
+# Which cluster this probe reports as, and which cell namespaces it watches.
+# Set at show-start and never changed, so no pod restarts mid-demo. These two
+# values are what let the alarms tell one cell from another.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: probe-config
+  namespace: con339-probe
+data:
+  cluster-name: use1-05
+  namespaces: con339-ns-01 con339-ns-02 con339-ns-03 con339-ns-04

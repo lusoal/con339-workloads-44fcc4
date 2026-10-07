@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: con339-app
+  namespace: con339
+  labels:
+    app: con339-app
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  progressDeadlineSeconds: 60
+  selector:
+    matchLabels:
+      app: con339-app
+  template:
+    metadata:
+      labels:
+        app: con339-app
+    spec:
+      nodeSelector:
+        con339.io/pool: app-pool
+      containers:
+        - name: app
+          image: python:3.12-alpine
+          command: ["python", "-u", "/app/app.py"]
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DNS_TARGET
+              value: sts.us-east-1.amazonaws.com
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            periodSeconds: 5
+            timeoutSeconds: 4
+            failureThreshold: 2
+          volumeMounts:
+            - name: app
+              mountPath: /app
+      volumes:
+        - name: app
+          configMap:
+            name: con339-app
