@@ -10,6 +10,11 @@ spec:
   strategy:
     type: Recreate
   progressDeadlineSeconds: 60
+  # The rollout, not Argo CD, was the slow part of a break: Argo CD applies the
+  # manifest in a few seconds and then Kubernetes spends tens of seconds shutting
+  # pods down gracefully. Nothing here holds state, so graceful shutdown buys
+  # nothing and costs the demo its pacing.
+  minReadySeconds: 0
   selector:
     matchLabels:
       app: con339-app
@@ -18,6 +23,10 @@ spec:
       labels:
         app: con339-app
     spec:
+      # Nothing here holds state, so a graceful shutdown window only delays the
+      # break. The default 30s was the single biggest contributor to "it takes a
+      # while to truly break".
+      terminationGracePeriodSeconds: 0
       nodeSelector:
         con339.io/pool: app-pool
       containers:
@@ -39,9 +48,12 @@ spec:
             httpGet:
               path: /ready
               port: 8080
-            periodSeconds: 5
-            timeoutSeconds: 4
-            failureThreshold: 2
+            # One second, one failure. A broken pod used to stay "ready" for up
+            # to ten seconds after it had actually stopped working, which the
+            # probe then could not see either.
+            periodSeconds: 1
+            timeoutSeconds: 2
+            failureThreshold: 1
           volumeMounts:
             - name: app
               mountPath: /app

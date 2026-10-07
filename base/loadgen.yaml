@@ -47,6 +47,7 @@ spec:
       labels:
         app: con339-loadgen
     spec:
+      terminationGracePeriodSeconds: 0
       nodeSelector:
         con339.io/pool: app-pool
       containers:

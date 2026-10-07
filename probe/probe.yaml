@@ -51,7 +51,9 @@ data:
           || echo "put-metric-data failed"
       fi
       echo "$SUMMARY"
-      sleep 10
+      # 5s, not 10. Two datapoints at a 10s alarm period needed 20 to 30 seconds
+      # to confirm a failure; at 5s the alarm has what it needs in about 10.
+      sleep 5
     done
 ---
 apiVersion: apps/v1
