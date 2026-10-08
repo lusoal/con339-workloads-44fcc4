@@ -47,3 +47,5 @@ Each cell has three metric alarms and one composite alarm named
 
 `dashboards/fleet.json` is the fleet view. Keep its widget periods consistent when
 editing.
+
+_Last reviewed: 2026-10-08 22:22 UTC._
