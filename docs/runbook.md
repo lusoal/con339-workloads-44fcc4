@@ -49,5 +49,3 @@ Follow `skills/fleet-rules/SKILL.md`. In short: ask the room first with the
 `room_approval` tool, then branch `fix/<incident-id>` from `main`, restore each
 affected `release.yaml` to its content at the commit before the bad one, push one
 commit, and open a PR into `main`. Do not merge. Do not touch `base/`.
-
-_Last reviewed: 2026-10-08 14:55 UTC._
