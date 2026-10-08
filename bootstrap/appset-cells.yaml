@@ -150,17 +150,18 @@ spec:
         repoURL: https://github.com/lusoal/con339-workloads-44fcc4
         targetRevision: main
         path: overlays/cells/{{cell}}
-      # automated on, selfHeal off, and that pairing is the point.
+      # NO automated block at all during Act 1, and that absence is the point.
       #
-      # Act 1 hands every attendee a real shell and asks them to break their own
-      # cell. With selfHeal on, Argo CD would undo each break within about five
-      # seconds and there would be nothing left to investigate. With automated
-      # off, the Act 2 commit would never deploy. So: Git changes sync, manual
-      # drift sticks. The presenter turns selfHeal on at the end of Act 1 and the
-      # whole room's damage is reverted at once.
+      # automated:true with selfHeal:false looked right: a commit still deploys and a
+      # hand-made change is not reverted. But Argo CD syncs on any new REVISION, and a
+      # sync re-applies every manifest. So a decoy commit, or anyone pushing to the
+      # repo, silently restored the whole room's damage mid-Act-1. It happened twice in
+      # rehearsal and looked exactly like self-heal while selfHeal was off.
+      #
+      # With no automated block, Argo CD watches and reports drift and changes nothing.
+      # The presenter's Self-heal button adds automated:{prune,selfHeal} in one PATCH,
+      # which both heals the room at once -- the hub-and-spoke moment -- and switches on
+      # the commit-driven delivery Act 2 needs. Reset removes it again.
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: false
         syncOptions:
           - CreateNamespace=true
