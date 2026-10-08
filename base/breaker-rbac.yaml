@@ -1,0 +1,64 @@
+# Lets an attendee break their own cell and nothing else.
+#
+# Act 1 hands out real Kubernetes access. The blast radius has to be the cell's
+# namespace and only that, because Argo CD can only heal what it manages: it will
+# restore a deleted Deployment from Git, but it cannot bring back a node, a CRD, or
+# anything in kube-system. `edit` in one namespace genuinely cannot reach those.
+#
+# edit rather than admin on purpose: no RBAC changes, so nobody can widen their own
+# access, and no resourcequota edits.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: con339-breaker
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: con339-breaker
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+  - kind: ServiceAccount
+    name: con339-breaker
+#
+# Deliberately no token Secret here. A Secret of this type is a bearer token that
+# never expires, sitting in a namespace for as long as the cluster lives, and it
+# would be minted a hundred times over. Instead the terminal Lambda calls the
+# TokenRequest API for this ServiceAccount when an attendee claims their cell, so
+# each token lasts about as long as the session and belongs to one person.
+---
+# Lets the terminal Lambda mint a token for the breaker ServiceAccount, and do
+# nothing else in this namespace.
+#
+# Narrow on purpose. `create` on `serviceaccounts/token` for ONE named
+# ServiceAccount is the whole permission: it cannot list Secrets, cannot read the
+# workload, and cannot mint a token for any other identity. The Lambda that hands
+# out a hundred credentials should not be able to do more than hand them out.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: con339-breaker-token-minter
+rules:
+  - apiGroups: [""]
+    resources: ["serviceaccounts/token"]
+    resourceNames: ["con339-breaker"]
+    verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: con339-breaker-token-minter
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: con339-breaker-token-minter
+subjects:
+  # The group an EKS access entry maps the terminal Lambda's IAM role to. A group
+  # rather than the role ARN directly, so rotating the Lambda's role is an access
+  # entry change rather than a commit to every cell.
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: con339-terminal-minters

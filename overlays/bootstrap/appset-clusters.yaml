@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: clusters
+  namespace: argocd
+spec:
+  goTemplate: false
+  generators:
+    - list:
+        elements:
+          - cluster: use1-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-01
+          - cluster: use1-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-02
+          - cluster: use1-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-03
+          - cluster: use1-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-04
+          - cluster: use1-05
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-05
+          - cluster: use1-06
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-06
+          - cluster: use1-07
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-07
+          - cluster: use1-08
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-08
+  template:
+    metadata:
+      name: 'infra-{{cluster}}'
+      labels:
+        con339.io/ring: infra
+    spec:
+      project: default
+      destination:
+        server: '{{server}}'
+        namespace: con339-probe
+      source:
+        repoURL: https://github.com/lusoal/con339-workloads-44fcc4
+        targetRevision: main
+        path: overlays/probes/{{cluster}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
