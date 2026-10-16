@@ -1,9 +1,27 @@
-# Baseline release patch for cell-006 (con339-ns-02 on use1-02): a no-op label.
-# Fault releases replace this file; reverting restores exactly this content.
-apiVersion: v1
-kind: ConfigMap
+# Standardise the health endpoint.
+#
+# Points the readiness probe at /health. The app serves /healthz, /dns and
+# /ready and returns 404 for everything else, so /health is one character from
+# correct and never returns 200. Pods start, stay up, and never become Ready.
+#
+# This is the most convincing of the ten on the cluster: the container is
+# Running, the process is fine, the logs are empty because the app does not log
+# 404s, and the Deployment just reports 0/2 ready forever.
+#
+# Signature: pods Running but NOT Ready. All three alarms ALARM, because an
+# unready pod is removed from the Service endpoints and the probe cannot reach
+# anything at all.
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: con339-release
+  name: con339-app
   namespace: con339
-  labels:
-    con339.io/release: baseline
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
