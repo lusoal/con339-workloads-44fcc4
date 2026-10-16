@@ -1,9 +1,21 @@
-# Baseline release patch for cell-014 (con339-ns-02 on use1-04): a no-op label.
-# Fault releases replace this file; reverting restores exactly this content.
-apiVersion: v1
-kind: ConfigMap
+# Pin the app image to a digest.
+#
+# Reads as supply-chain hygiene, which is why it is a good lie: pinning by
+# digest is genuinely good practice. The digest is all zeroes and matches
+# nothing in the registry, so the kubelet fails with ImagePullBackOff.
+#
+# The tag is left correct, so `kubectl get deploy -o wide` shows a plausible
+# image and only the full image string or the pod events give it away.
+#
+# Signature: pods NOT Running (ImagePullBackOff). All three alarms go to ALARM.
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: con339-release
+  name: con339-app
   namespace: con339
-  labels:
-    con339.io/release: baseline
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          image: python:3.12-alpine@sha256:0000000000000000000000000000000000000000000000000000000000000000
