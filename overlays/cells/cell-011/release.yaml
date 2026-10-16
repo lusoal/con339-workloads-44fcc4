@@ -1,20 +1,9 @@
-# Rename the app selector label.
-#
-# Repoints the Service selector at app=con339-web. No pod carries that label,
-# so the Service has no endpoints and nothing can reach the app.
-#
-# Reads as a tidy-up: con339-web is a plausible name for the thing the Service
-# fronts. The Service and the Deployment are both individually valid and only
-# disagree with each other.
-#
-# Signature: same as release-service-port. replicas_unavailable OK, the other
-# two ALARM. `kubectl get endpoints con339-app` is the fastest way to tell the
-# two apart -- empty here, populated but wrong there.
+# Baseline release patch for cell-011 (con339-ns-03 on use1-03): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
 apiVersion: v1
-kind: Service
+kind: ConfigMap
 metadata:
-  name: con339-app
+  name: con339-release
   namespace: con339
-spec:
-  selector:
-    app: con339-web
+  labels:
+    con339.io/release: baseline

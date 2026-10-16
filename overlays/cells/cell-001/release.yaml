@@ -1,25 +1,9 @@
-# Point DNS at the internal resolver.
-#
-# Sets DNS_TARGET to a hostname in .invalid, which by RFC 2606 can never
-# resolve. The app resolves DNS_TARGET on every /ready and /dns request and
-# returns 500 when it fails.
-#
-# Reads as a sensible change: moving a lookup off a public endpoint onto an
-# internal one. Nothing about the manifest looks wrong.
-#
-# Signature: pods Running but NOT Ready, and DnsSuccess is the first metric to
-# move. All three end up ALARM, because the readiness probe also calls /ready
-# and so an unready pod leaves the Service with no endpoints.
-apiVersion: apps/v1
-kind: Deployment
+# Baseline release patch for cell-001 (con339-ns-01 on use1-01): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: con339-app
+  name: con339-release
   namespace: con339
-spec:
-  template:
-    spec:
-      containers:
-        - name: app
-          env:
-            - name: DNS_TARGET
-              value: resolver.internal.invalid
+  labels:
+    con339.io/release: baseline

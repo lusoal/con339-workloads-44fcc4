@@ -1,24 +1,9 @@
-# Move probes to the metrics port.
-#
-# Sends the readiness probe to 9090, a port nothing is listening on. The app
-# serves 8080 only. Connection refused is not a 200, so pods never go Ready.
-#
-# Sits next to release-probe-path on purpose: same symptom, different field.
-# An investigation that pattern-matches "probe failing, must be the path" gets
-# it wrong, which is the sort of thing worth watching an agent handle.
-#
-# Signature: pods Running but NOT Ready. All three alarms ALARM.
-apiVersion: apps/v1
-kind: Deployment
+# Baseline release patch for cell-017 (con339-ns-01 on use1-05): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: con339-app
+  name: con339-release
   namespace: con339
-spec:
-  template:
-    spec:
-      containers:
-        - name: app
-          readinessProbe:
-            httpGet:
-              path: /ready
-              port: 9090
+  labels:
+    con339.io/release: baseline
