@@ -1,9 +1,22 @@
-# Baseline release patch for cell-015 (con339-ns-03 on use1-04): a no-op label.
-# Fault releases replace this file; reverting restores exactly this content.
-apiVersion: v1
-kind: ConfigMap
+# Move to the cost-optimised node pool.
+#
+# Adds a second nodeSelector key. The base already selects
+# con339.io/pool=app-pool, and a strategic merge MERGES map keys rather than
+# replacing them, so the pod now needs both labels and no node carries
+# disktype=spot-optimised.
+#
+# The cruel part: a Pending pod with an unsatisfiable nodeSelector says very
+# little on the pod itself. The reason lives in the scheduler event, not the
+# pod status, so `kubectl describe pod` is the only thing that explains it.
+#
+# Signature: pods NOT Running (Pending, no nodes match). All three ALARM.
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: con339-release
+  name: con339-app
   namespace: con339
-  labels:
-    con339.io/release: baseline
+spec:
+  template:
+    spec:
+      nodeSelector:
+        disktype: spot-optimised
