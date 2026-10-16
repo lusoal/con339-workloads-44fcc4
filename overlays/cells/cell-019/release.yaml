@@ -1,28 +1,9 @@
-# Restrict egress traffic.
-#
-# Narrows the base allow-all egress NetworkPolicy to TCP 80 and 443 only, so
-# UDP and TCP port 53 are blocked and DNS stops working. The app's /ready and
-# /dns then return 500.
-#
-# The honest-looking one. Locking egress down to HTTP and HTTPS is exactly what
-# a security review asks for, and the policy itself contains no mistake. What
-# it omits is the problem.
-#
-# Signature: identical to release-dns-resolver from the alarms alone. The
-# difference is where the fault lives -- a NetworkPolicy, not the Deployment --
-# so they can only be told apart by looking.
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
+# Baseline release patch for cell-019 (con339-ns-03 on use1-05): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: con339-egress
+  name: con339-release
   namespace: con339
-spec:
-  podSelector: {}
-  policyTypes:
-    - Egress
-  egress:
-    - ports:
-        - protocol: TCP
-          port: 80
-        - protocol: TCP
-          port: 443
+  labels:
+    con339.io/release: baseline
