@@ -1,24 +1,9 @@
-# Standardise the service port.
-#
-# Moves the Service's targetPort to 9999. The app still listens on 8080, so the
-# Service forwards every request to a port nothing is listening on.
-#
-# This is the quiet one, and the reason it is in the set. Every pod is Running
-# and Ready, the Deployment reports its full replica count, `kubectl get pods`
-# is immaculate, and the cell is completely down. An investigation that only
-# looks at workloads reports that nothing is wrong.
-#
-# The patch merges by port number -- spec.ports has patchMergeKey "port" -- so
-# naming port 80 replaces that entry's targetPort and leaves the rest alone.
-#
-# Signature: replicas_unavailable stays OK. HttpHealthy and DnsSuccess go
-# ALARM. That OK in the first column is the whole tell.
+# Baseline release patch for cell-010 (con339-ns-02 on use1-03): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
 apiVersion: v1
-kind: Service
+kind: ConfigMap
 metadata:
-  name: con339-app
+  name: con339-release
   namespace: con339
-spec:
-  ports:
-    - port: 80
-      targetPort: 9999
+  labels:
+    con339.io/release: baseline
