@@ -1,9 +1,22 @@
-# Baseline release patch for cell-006 (con339-ns-02 on use1-02): a no-op label.
-# Fault releases replace this file; reverting restores exactly this content.
-apiVersion: v1
-kind: ConfigMap
+# Right-size CPU requests.
+#
+# Raises the CPU request far above what any allowed instance can provide. The
+# Deployment strategy is Recreate, so the old pods go away and every new pod stays
+# Pending with no node able to fit it.
+#
+# Signature: pods NOT Running (Pending, insufficient cpu). All three ALARM.
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: con339-release
+  name: con339-app
   namespace: con339
-  labels:
-    con339.io/release: baseline
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          resources:
+            requests:
+              cpu: "95"
+            limits:
+              cpu: "95"
