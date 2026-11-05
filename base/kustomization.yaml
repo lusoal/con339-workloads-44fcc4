@@ -7,5 +7,4 @@ resources:
   - networkpolicy.yaml
   - deployment.yaml
   - service.yaml
-  - hpa.yaml
   - loadgen.yaml
