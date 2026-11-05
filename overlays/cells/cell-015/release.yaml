@@ -1,22 +1,9 @@
-# Right-size CPU requests.
-#
-# Raises the CPU request far above what any allowed instance can provide. The
-# Deployment strategy is Recreate, so the old pods go away and every new pod stays
-# Pending with no node able to fit it.
-#
-# Signature: pods NOT Running (Pending, insufficient cpu). All three ALARM.
-apiVersion: apps/v1
-kind: Deployment
+# Baseline release patch for cell-015 (con339-ns-03 on use1-04): a no-op label.
+# Fault releases replace this file; reverting restores exactly this content.
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: con339-app
+  name: con339-release
   namespace: con339
-spec:
-  template:
-    spec:
-      containers:
-        - name: app
-          resources:
-            requests:
-              cpu: "95"
-            limits:
-              cpu: "95"
+  labels:
+    con339.io/release: baseline
