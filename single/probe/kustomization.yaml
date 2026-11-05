@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../probe
+patches:
+  # The probe is generic: it reads the cluster name and the namespaces to watch
+  # out of this ConfigMap. One namespace here, not four.
+  - target:
+      kind: ConfigMap
+      name: probe-config
+    patch: |
+      - op: replace
+        path: /data/cluster-name
+        value: use1-single
+      - op: replace
+        path: /data/namespaces
+        value: con339

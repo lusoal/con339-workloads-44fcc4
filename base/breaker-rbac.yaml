@@ -1,6 +1,6 @@
 # Lets an attendee break their own cell and nothing else.
 #
-# Act 1 hands out real Kubernetes access. The blast radius has to be the cell's
+# The attendee terminals hand out real Kubernetes access. The blast radius has to be the cell's
 # namespace and only that, because Argo CD can only heal what it manages: it will
 # restore a deleted Deployment from Git, but it cannot bring back a node, a CRD, or
 # anything in kube-system. `edit` in one namespace genuinely cannot reach those.

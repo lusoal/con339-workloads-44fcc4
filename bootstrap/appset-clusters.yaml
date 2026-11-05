@@ -24,6 +24,40 @@ spec:
             server: arn:aws:eks:us-east-1:054678736585:cluster/use1-07
           - cluster: use1-08
             server: arn:aws:eks:us-east-1:054678736585:cluster/use1-08
+          - cluster: use1-09
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-09
+          - cluster: use1-10
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-10
+          - cluster: use1-11
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-11
+          - cluster: use1-12
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-12
+          - cluster: use1-13
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-13
+          - cluster: use1-14
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-14
+          - cluster: use1-15
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-15
+          - cluster: use1-16
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-16
+          - cluster: use1-17
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-17
+          - cluster: use1-18
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-18
+          - cluster: use1-19
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-19
+          - cluster: use1-20
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-20
+          - cluster: use1-21
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-21
+          - cluster: use1-22
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-22
+          - cluster: use1-23
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-23
+          - cluster: use1-24
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-24
+          - cluster: use1-25
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-25
   template:
     metadata:
       name: 'infra-{{cluster}}'

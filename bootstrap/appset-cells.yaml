@@ -136,6 +136,278 @@ spec:
             cluster: use1-08
             namespace: con339-ns-04
             server: arn:aws:eks:us-east-1:054678736585:cluster/use1-08
+          - cell: cell-033
+            cluster: use1-09
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-09
+          - cell: cell-034
+            cluster: use1-09
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-09
+          - cell: cell-035
+            cluster: use1-09
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-09
+          - cell: cell-036
+            cluster: use1-09
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-09
+          - cell: cell-037
+            cluster: use1-10
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-10
+          - cell: cell-038
+            cluster: use1-10
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-10
+          - cell: cell-039
+            cluster: use1-10
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-10
+          - cell: cell-040
+            cluster: use1-10
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-10
+          - cell: cell-041
+            cluster: use1-11
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-11
+          - cell: cell-042
+            cluster: use1-11
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-11
+          - cell: cell-043
+            cluster: use1-11
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-11
+          - cell: cell-044
+            cluster: use1-11
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-11
+          - cell: cell-045
+            cluster: use1-12
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-12
+          - cell: cell-046
+            cluster: use1-12
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-12
+          - cell: cell-047
+            cluster: use1-12
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-12
+          - cell: cell-048
+            cluster: use1-12
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-12
+          - cell: cell-049
+            cluster: use1-13
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-13
+          - cell: cell-050
+            cluster: use1-13
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-13
+          - cell: cell-051
+            cluster: use1-13
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-13
+          - cell: cell-052
+            cluster: use1-13
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-13
+          - cell: cell-053
+            cluster: use1-14
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-14
+          - cell: cell-054
+            cluster: use1-14
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-14
+          - cell: cell-055
+            cluster: use1-14
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-14
+          - cell: cell-056
+            cluster: use1-14
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-14
+          - cell: cell-057
+            cluster: use1-15
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-15
+          - cell: cell-058
+            cluster: use1-15
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-15
+          - cell: cell-059
+            cluster: use1-15
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-15
+          - cell: cell-060
+            cluster: use1-15
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-15
+          - cell: cell-061
+            cluster: use1-16
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-16
+          - cell: cell-062
+            cluster: use1-16
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-16
+          - cell: cell-063
+            cluster: use1-16
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-16
+          - cell: cell-064
+            cluster: use1-16
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-16
+          - cell: cell-065
+            cluster: use1-17
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-17
+          - cell: cell-066
+            cluster: use1-17
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-17
+          - cell: cell-067
+            cluster: use1-17
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-17
+          - cell: cell-068
+            cluster: use1-17
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-17
+          - cell: cell-069
+            cluster: use1-18
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-18
+          - cell: cell-070
+            cluster: use1-18
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-18
+          - cell: cell-071
+            cluster: use1-18
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-18
+          - cell: cell-072
+            cluster: use1-18
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-18
+          - cell: cell-073
+            cluster: use1-19
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-19
+          - cell: cell-074
+            cluster: use1-19
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-19
+          - cell: cell-075
+            cluster: use1-19
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-19
+          - cell: cell-076
+            cluster: use1-19
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-19
+          - cell: cell-077
+            cluster: use1-20
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-20
+          - cell: cell-078
+            cluster: use1-20
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-20
+          - cell: cell-079
+            cluster: use1-20
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-20
+          - cell: cell-080
+            cluster: use1-20
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-20
+          - cell: cell-081
+            cluster: use1-21
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-21
+          - cell: cell-082
+            cluster: use1-21
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-21
+          - cell: cell-083
+            cluster: use1-21
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-21
+          - cell: cell-084
+            cluster: use1-21
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-21
+          - cell: cell-085
+            cluster: use1-22
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-22
+          - cell: cell-086
+            cluster: use1-22
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-22
+          - cell: cell-087
+            cluster: use1-22
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-22
+          - cell: cell-088
+            cluster: use1-22
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-22
+          - cell: cell-089
+            cluster: use1-23
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-23
+          - cell: cell-090
+            cluster: use1-23
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-23
+          - cell: cell-091
+            cluster: use1-23
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-23
+          - cell: cell-092
+            cluster: use1-23
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-23
+          - cell: cell-093
+            cluster: use1-24
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-24
+          - cell: cell-094
+            cluster: use1-24
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-24
+          - cell: cell-095
+            cluster: use1-24
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-24
+          - cell: cell-096
+            cluster: use1-24
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-24
+          - cell: cell-097
+            cluster: use1-25
+            namespace: con339-ns-01
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-25
+          - cell: cell-098
+            cluster: use1-25
+            namespace: con339-ns-02
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-25
+          - cell: cell-099
+            cluster: use1-25
+            namespace: con339-ns-03
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-25
+          - cell: cell-100
+            cluster: use1-25
+            namespace: con339-ns-04
+            server: arn:aws:eks:us-east-1:054678736585:cluster/use1-25
   template:
     metadata:
       name: '{{cell}}'
@@ -150,18 +422,30 @@ spec:
         repoURL: https://github.com/lusoal/con339-workloads-44fcc4
         targetRevision: main
         path: overlays/cells/{{cell}}
-      # NO automated block at all during Act 1, and that absence is the point.
+      # Reconciliation is ON for the whole hour, and that is a change from the
+      # two-act version of this demo.
       #
-      # automated:true with selfHeal:false looked right: a commit still deploys and a
-      # hand-made change is not reverted. But Argo CD syncs on any new REVISION, and a
-      # sync re-applies every manifest. So a decoy commit, or anyone pushing to the
-      # repo, silently restored the whole room's damage mid-Act-1. It happened twice in
-      # rehearsal and looked exactly like self-heal while selfHeal was off.
+      # Every break is a commit now. The room picks a change, confirms it, and one
+      # press ships one commit per change, so Argo CD is what DELIVERS the faults --
+      # with no automated block nothing would deploy and the room would press Break
+      # to no effect at all.
       #
-      # With no automated block, Argo CD watches and reports drift and changes nothing.
-      # The presenter's Self-heal button adds automated:{prune,selfHeal} in one PATCH,
-      # which both heals the room at once -- the hub-and-spoke moment -- and switches on
-      # the commit-driven delivery Act 2 needs. Reset removes it again.
+      # It also makes the decoys safe. The old design had the room breaking cells by
+      # hand, and any new revision on main made Argo CD re-apply every manifest, so a
+      # decoy commit silently restored the damage. It happened twice in rehearsal and
+      # looked exactly like self-heal while selfHeal was off. Now a decoy-triggered
+      # sync re-applies the same broken Git state, so the damage is held in place by
+      # the very thing that caused it.
+      #
+      # selfHeal:true earns its place separately: the attendee terminals still have
+      # edit rights, so anyone changing their cell by hand watches Argo CD put it back
+      # within about five seconds. That is the GitOps lesson, live, for free.
+      #
+      # The fix is a human merging one pull request. Nothing on the presenter page
+      # heals the fleet, because nothing needs to.
       syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
