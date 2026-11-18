@@ -11,7 +11,7 @@
         "region": "us-east-1",
         "view": "timeSeries",
         "stat": "Minimum",
-        "period": 60,
+        "period": 30,
         "yAxis": {
           "left": {
             "min": 0,
